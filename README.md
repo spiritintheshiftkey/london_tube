@@ -1,24 +1,33 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ensure you have Ruby 3 and SQLite (standard setup for app made with rails generator)
 
-Things you may want to cover:
+Run `bin/rails db:migrate && bin/rails db:seed` to set up data
 
-* Ruby version
+Run `bin/rails server` to start the server
 
-* System dependencies
+USAGE:
 
-* Configuration
+View Oyster Card balance:
 
-* Database creation
+`curl localhost:3000/oyster_cards/1`
 
-* Database initialization
+Add funds:
 
-* How to run the test suite
+`curl -X PATCH -d "amount_pounds=30" localhost:3000/oyster_cards/1`
 
-* Services (job queues, cache servers, search engines, etc.)
+Ride any bus:
+`curl -X POST localhost:3000/oyster_cards/1/ride_bus`
 
-* Deployment instructions
+Enter a station:
+`curl -X POST -d "station_name=Holburn" localhost:3000/oyster_cards/1/enter_station`
 
-* ...
+Exit a station:
+`curl -X POST -d "station_name=Earl’s Court" localhost:3000/oyster_cards/1/leave_station`
+
+Create a new Oyster Card:
+`curl -X POST -d "amount_pounds=30" localhost:3000/oyster_cards`
+
+Additional examples for testing:
+`curl -X POST -d "station_name=Chelsea" localhost:3000/oyster_cards/1/enter_station`
+`curl -X POST -d "station_name=Wimbledon" localhost:3000/oyster_cards/1/leave_station`
